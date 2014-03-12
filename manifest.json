@@ -1,0 +1,18 @@
+{
+   "background": {
+      "page": "background.html"
+   },
+   "browser_action": {
+      "default_icon": "terminal.png",
+      "default_title": "nutty.io"
+   },
+   "description": "Share your terminal securely to a remote user using just a browser",
+   "icons": {
+      "128": "terminal.png"
+   },
+   "manifest_version": 2,
+   "name": "nutty",
+   "permissions": [ "nativeMessaging", "clipboardRead", "clipboardWrite" , "activeTab"],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.3"
+}
