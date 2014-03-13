@@ -12,7 +12,11 @@
    },
    "manifest_version": 2,
    "name": "nutty",
+   "options_page": "options.html",
+   "externally_connectable": {
+     "matches": ["https://nutty.io/*"]
+   },
    "permissions": [ "nativeMessaging", "clipboardRead", "clipboardWrite" , "activeTab"],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "1.3"
+   "version": "1.4"
 }

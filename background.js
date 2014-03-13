@@ -5,9 +5,27 @@
 var portmap = {};
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.tabs.executeScript(null, {
-        file: "inject.js"
-    });
+    if (localStorage['nuttyserver'] === undefined)
+        localStorage['nuttyserver'] = 'https://nutty.io'
+
+    var nuttyserver = localStorage['nuttyserver'];
+    if (nuttyserver === 'https://nutty.io') {
+        chrome.tabs.create({
+            index: tab.index+1,
+            url: 'https://nutty.io/share',
+            active: true
+        });
+    } else if (nuttyserver + '/clickicon' === tab.url) {
+        chrome.tabs.executeScript(tab.id, {
+            file: "inject.js"
+        });
+    } else {
+        chrome.tabs.create({
+            index: tab.index+1,
+            url: nuttyserver + '/clickicon',
+            active: true
+        });
+    }
 });
 
 function fromnativeport(sessionid) {
@@ -19,7 +37,7 @@ function fromnativeport(sessionid) {
     }
 }
 
-chrome.runtime.onConnect.addListener(function(port) {
+function nuttyonconnect(port) {
     var nativeport;
     var sessionid;
     var input = document.getElementById('clipboard');
@@ -112,4 +130,7 @@ chrome.runtime.onConnect.addListener(function(port) {
             });
         }
     });
-});
+}
+
+chrome.runtime.onConnect.addListener(nuttyonconnect);
+chrome.runtime.onConnectExternal.addListener(nuttyonconnect);
